@@ -15,6 +15,44 @@ describe("Gilded Rose", () => {
     expect(items.length).to.equal(0)
   })
 
+  describe('default item', () => {
+    const name = 'default'
+    const sellIn = 1
+      const quality = 10
+
+    test('quality and sellIn decreases', () => {
+      const gildedRose = new Shop([new Item(name, sellIn, quality)])
+      const items = gildedRose.updateQuality()
+
+      expect(items[0].name).to.equal(name)
+      expect(items[0].sellIn).to.equal(sellIn - 1)
+      expect(items[0].quality).to.equal(quality - 1)
+    })
+
+    test('quality max is 50', () => {
+      const quality = 55
+      const gildedRose = new Shop([new Item(name, sellIn, quality)])
+      const items = gildedRose.updateQuality()
+      expect(items[0].quality).to.equal(50)
+    })
+
+    test('quality never negative', () => {
+      const quality = 0
+      const gildedRose = new Shop([new Item(name, sellIn, quality)])
+      const items = gildedRose.updateQuality()
+      expect(items[0].quality).to.equal(0)
+    })
+
+    test('when sellIn is smaller 0, twice quality loss', () => {
+      const sellIn = 0
+      const gildedRose = new Shop([new Item(name, sellIn, quality)])
+      const items = gildedRose.updateQuality()
+      expect(items[0].quality).to.equal(quality - 2)
+    })
+  })
+
+
+
   describe('name != Aged Brie and != Backstage ...', () => {
     const name = 'foo'
 
