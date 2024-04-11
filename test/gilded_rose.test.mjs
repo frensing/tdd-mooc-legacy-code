@@ -19,14 +19,14 @@ describe("Gilded Rose", () => {
     const name = 'foo'
 
     describe('quality > 0', () => {
-      const quality = 1
+      const quality = 55
 
       test('name != Sulfuras...', () => {
         const gildedRose = new Shop([new Item(name, 0, quality)])
         const items = gildedRose.updateQuality()
 
         expect(items[0].name).to.equal(name)
-        expect(items[0].quality).to.equal(quality - 1)
+        expect(items[0].quality).to.equal(quality - 2)
       })
 
       test('name = Sufuras...', () => {
@@ -87,6 +87,16 @@ describe("Gilded Rose", () => {
             expect(items[0].name).to.equal(name)
             expect(items[0].quality).to.equal(quality + 1)
           })
+        })
+
+        test('sellIn = 6', () => {
+          const sellIn = 6
+
+          const gildedRose = new Shop([new Item(name, sellIn, quality)])
+          const items = gildedRose.updateQuality()
+
+          expect(items[0].name).to.equal(name)
+          expect(items[0].quality).to.equal(quality + 2)
         })
 
         describe('sellIn < 6', () => {
@@ -208,8 +218,8 @@ describe("Gilded Rose", () => {
     describe('name = Aged Brie', () => {
       const name = 'Aged Brie'
 
-      test('quality < 50', () => {
-        const quality = 40
+      test('quality = 48 < 50', () => {
+        const quality = 48
 
         const gildedRose = new Shop([new Item(name, sellIn, quality)])
         const items = gildedRose.updateQuality()
@@ -218,8 +228,18 @@ describe("Gilded Rose", () => {
         expect(items[0].quality).to.equal(quality + 2)
       })
 
+      test('quality = 49 < 50', () => {
+        const quality = 49
+
+        const gildedRose = new Shop([new Item(name, sellIn, quality)])
+        const items = gildedRose.updateQuality()
+
+        expect(items[0].name).to.equal(name)
+        expect(items[0].quality).to.equal(quality + 1)
+      })
+
       test('quality >= 50', () => {
-        const quality = 55
+        const quality = 50
 
         const gildedRose = new Shop([new Item(name, sellIn, quality)])
         const items = gildedRose.updateQuality()
