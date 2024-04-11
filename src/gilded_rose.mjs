@@ -35,7 +35,11 @@ export class Shop {
           }
       }
 
-      item.quality = Math.max(Math.min(item.quality, 50), 0)
+      if (item.name == 'Sulfuras, Hand of Ragnaros') {
+        item.quality = 80
+      } else {
+        item.quality = Math.max(Math.min(item.quality, 50), 0)
+      }
     }
 
     return this.items;

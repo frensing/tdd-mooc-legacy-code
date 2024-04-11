@@ -129,6 +129,27 @@ describe("Gilded Rose", () => {
     })
   })
 
+  describe('Sulfuras, Hand of Ragnaros', () => {
+    const name = 'Sulfuras, Hand of Ragnaros'
+    const quality = 80
+
+    test('quality is 80', () => {
+      const gildedRose = new Shop([new Item(name, 0, quality)])
+      const items = gildedRose.updateQuality()
+
+      expect(items[0].name).to.equal(name)
+      expect(items[0].quality).to.equal(quality)
+    })
+
+    test('sellIn does not decrease', () => {
+      const sellIn = 10
+      const gildedRose = new Shop([new Item(name, sellIn, quality)])
+      const items = gildedRose.updateQuality()
+
+      expect(items[0].sellIn).to.equal(sellIn)
+    })
+  })
+
   describe('name != Aged Brie and != Backstage ...', () => {
     const name = 'foo'
 
@@ -145,6 +166,7 @@ describe("Gilded Rose", () => {
 
       test('name = Sufuras...', () => {
         const name = 'Sulfuras, Hand of Ragnaros'
+        const quality = 80
         const gildedRose = new Shop([new Item(name, 0, quality)])
         const items = gildedRose.updateQuality()
 
@@ -307,6 +329,7 @@ describe("Gilded Rose", () => {
 
           test('name = Sulfuras', () => {
             const name = 'Sulfuras, Hand of Ragnaros'
+            const quality = 80
 
             const gildedRose = new Shop([new Item(name, sellIn, quality)])
             const items = gildedRose.updateQuality()
