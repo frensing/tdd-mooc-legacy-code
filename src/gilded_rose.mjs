@@ -15,6 +15,8 @@ export class Shop {
     for (var i = 0; i < this.items.length; i++) {
       const item = this.items[i]
 
+      item.sellIn -= 1
+
       switch(item.name) {
         case 'Aged Brie':
           this.updateBrie(item)
@@ -23,16 +25,16 @@ export class Shop {
           this.updateBackstage(item)
           break
         case 'Sulfuras, Hand of Ragnaros':
+          item.sellIn += 1
           break
         default:
-          item.sellIn -= 1
           item.quality -= 1
 
           if (item.sellIn < 0) {
             item.quality = item.quality - 1;
           }
       }
-      
+
       item.quality = Math.max(Math.min(item.quality, 50), 0)
     }
 
@@ -48,18 +50,14 @@ export class Shop {
   }
 
   updateBackstage(item) {
-    item.quality += 1
-
-    if (item.sellIn < 11) {
-      item.quality += 1;
-
-      if (item.sellIn < 6) {
-        item.quality = item.quality + 1;
-      }
-    }
-
-    if (item.sellIn < 0) {
-      item.quality -= item.quality;
+    if (item.sellIn >= 10) {
+      item.quality += 1
+    } else if (item.sellIn >= 5 && item.sellIn < 10) {
+      item.quality += 2;
+    } else if (item.sellIn >= 0 && item.sellIn < 5) {
+      item.quality = item.quality + 3;
+    } else {
+      item.quality = 0
     }
   }
 }
