@@ -49,7 +49,7 @@ export class Shop {
       }
 
       if (item.name == 'Sulfuras, Hand of Ragnaros') {
-
+        // nothing
       }
 
 
