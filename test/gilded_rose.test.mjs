@@ -19,7 +19,7 @@ describe("Gilded Rose", () => {
     const name = 'foo'
 
     describe('quality > 0', () => {
-      const quality = 55
+      const quality = 50
 
       test('name != Sulfuras...', () => {
         const gildedRose = new Shop([new Item(name, 0, quality)])
