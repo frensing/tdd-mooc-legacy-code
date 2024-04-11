@@ -51,7 +51,28 @@ describe("Gilded Rose", () => {
     })
   })
 
+  describe('Aged Brie', () => {
+    const name = 'Aged Brie'
+    const sellIn = 1
+    const quality = 10
 
+    test('quality increases', () => {
+      const gildedRose = new Shop([new Item(name, sellIn, quality)])
+      const items = gildedRose.updateQuality()
+
+      expect(items[0].sellIn).to.equal(sellIn - 1)
+      expect(items[0].quality).to.equal(quality + 1)
+    })
+
+    test('quality increases double when sellIn smaller 0', () => {
+      const sellIn = 0
+      const gildedRose = new Shop([new Item(name, sellIn, quality)])
+      const items = gildedRose.updateQuality()
+
+      expect(items[0].sellIn).to.equal(sellIn - 1)
+      expect(items[0].quality).to.equal(quality + 2)
+    })
+  })
 
   describe('name != Aged Brie and != Backstage ...', () => {
     const name = 'foo'
