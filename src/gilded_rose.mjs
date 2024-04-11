@@ -16,10 +16,10 @@ export class Shop {
       const item = this.items[i]
 
       item.sellIn -= 1
-      item.quality += 1
+      item.quality -= 1
 
       if (item.name == 'Aged Brie') {
-        
+        item.quality += 2
 
         if (item.sellIn < 0) {
           item.quality += 1
@@ -27,6 +27,7 @@ export class Shop {
       }
 
       if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
+        item.quality += 2
 
         if (item.sellIn < 10) {
           item.quality += 1;
@@ -43,16 +44,13 @@ export class Shop {
 
       if (item.name == 'Sulfuras, Hand of Ragnaros') {
         item.sellIn += 1
-        item.quality -= 1
+        item.quality += 1
       }
 
       if (item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert' && item.name != 'Sulfuras, Hand of Ragnaros') {
-        item.quality = item.quality - 2;
-
         if (item.sellIn < 0 && item.quality > 0) {
           item.quality = item.quality - 1;
         }
-
       }
 
       item.sellIn = Math.max(item.sellIn, 0)
