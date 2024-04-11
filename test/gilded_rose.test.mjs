@@ -74,6 +74,61 @@ describe("Gilded Rose", () => {
     })
   })
 
+  describe('Backstage passes to a TAFKAL80ETC concert', () => {
+    const name = 'Backstage passes to a TAFKAL80ETC concert'
+    const sellIn = 11
+    const quality = 10
+
+    test('quality increases', () => {
+      const gildedRose = new Shop([new Item(name, sellIn, quality)])
+      const items = gildedRose.updateQuality()
+
+      expect(items[0].sellIn).to.equal(sellIn - 1)
+      expect(items[0].quality).to.equal(quality + 1)
+    })
+
+    test('quality increases double when sellIn smaller 10 but greater equal 5', () => {
+      let sellIn = 10
+      let gildedRose = new Shop([new Item(name, sellIn, quality)])
+      let items = gildedRose.updateQuality()
+
+      expect(items[0].sellIn).to.equal(sellIn - 1)
+      expect(items[0].quality).to.equal(quality + 2)
+
+      sellIn = 6
+      gildedRose = new Shop([new Item(name, sellIn, quality)])
+      items = gildedRose.updateQuality()
+
+      expect(items[0].sellIn).to.equal(sellIn - 1)
+      expect(items[0].quality).to.equal(quality + 2)
+    })
+
+    test('quality increases trice when sellIn smaller 5 but not negative', () => {
+      let sellIn = 5
+      let gildedRose = new Shop([new Item(name, sellIn, quality)])
+      let items = gildedRose.updateQuality()
+
+      expect(items[0].sellIn).to.equal(sellIn - 1)
+      expect(items[0].quality).to.equal(quality + 3)
+
+      sellIn = 1
+      gildedRose = new Shop([new Item(name, sellIn, quality)])
+      items = gildedRose.updateQuality()
+
+      expect(items[0].sellIn).to.equal(sellIn - 1)
+      expect(items[0].quality).to.equal(quality + 3)
+    })
+
+    test('quality 0 when negative sellIn', () => {
+      const sellIn = 0
+      const gildedRose = new Shop([new Item(name, sellIn, quality)])
+      const items = gildedRose.updateQuality()
+
+      expect(items[0].sellIn).to.equal(sellIn - 1)
+      expect(items[0].quality).to.equal(0)
+    })
+  })
+
   describe('name != Aged Brie and != Backstage ...', () => {
     const name = 'foo'
 
