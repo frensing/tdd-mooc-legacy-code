@@ -27,6 +27,9 @@ export class Shop {
         case 'Sulfuras, Hand of Ragnaros':
           item.sellIn += 1
           break
+        case 'Conjured':
+          this.updateConjured(item)
+          break
         default:
           if (item.sellIn >= 0) {
             item.quality -= 1
@@ -62,6 +65,14 @@ export class Shop {
       item.quality = item.quality + 3;
     } else {
       item.quality = 0
+    }
+  }
+
+  updateConjured(item) {
+    if (item.sellIn >= 0) {
+      item.quality -= 2
+    } else {
+      item.quality -= 4
     }
   }
 }

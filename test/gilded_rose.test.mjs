@@ -149,4 +149,27 @@ describe("Gilded Rose", () => {
       expect(items[0].sellIn).to.equal(sellIn)
     })
   })
+
+  describe('Conjured', () => {
+    const name = 'Conjured'
+    const quality = 10
+    const sellIn = 1
+
+    test('quality degrades twice as fast', () => {
+      const gildedRose = new Shop([new Item(name, sellIn, quality)])
+      const items = gildedRose.updateQuality()
+
+      expect(items[0].name).to.equal(name)
+      expect(items[0].quality).to.equal(quality - 2)
+    })
+
+    test('quality degrades four-times as fast with negative sellin', () => {
+      const sellIn = 0
+      const gildedRose = new Shop([new Item(name, sellIn, quality)])
+      const items = gildedRose.updateQuality()
+
+      expect(items[0].name).to.equal(name)
+      expect(items[0].quality).to.equal(quality - 4)
+    })
+  })
 });
